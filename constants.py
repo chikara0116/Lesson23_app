@@ -26,6 +26,24 @@ WARNING_ICON = ":material/warning:"
 ERROR_ICON = ":material/error:"
 SPINNER_TEXT = "回答生成中..."
 
+# --- 新しいUI用の定数 ---
+SIDEBAR_TITLE = "利用目的"
+
+INITIAL_AI_MESSAGE = """
+こんにちは、私は社内文書の情報を回答する生成AIチャットボットです。
+サイドバーで利用目的を選択し、画面下部のチャット欄からメッセージを送信してください。
+"""
+
+INPUT_PROMPT_WARNING = "具体的に入力したほうが期待通りの回答を得やすいです。"
+
+SIDEBAR_SEARCH_INFO_HEADER = f"**【「{ANSWER_MODE_1}」を選択した場合】**"
+SIDEBAR_SEARCH_INFO_BODY = "入力内容と関連性が高い社内文書のありかを検索できます。"
+SIDEBAR_SEARCH_EXAMPLE = "【入力例】\n社員の育成方針に関するMTGの議事録"
+
+SIDEBAR_INQUIRY_INFO_HEADER = f"**【「{ANSWER_MODE_2}」を選択した場合】**"
+SIDEBAR_INQUIRY_INFO_BODY = "質問・要望に対して、社内文書の情報をもとに回答を得られます。"
+SIDEBAR_INQUIRY_EXAMPLE = "【入力例】\n人事部に所属している従業員情報を一覧化して"
+
 
 # ==========================================
 # ログ出力系
@@ -55,6 +73,18 @@ SUPPORTED_EXTENSIONS = {
 WEB_URL_LOAD_TARGETS = [
     "https://generative-ai.web-camp.io/"
 ]
+
+# ------------------------------------------
+# RAG設定
+# ------------------------------------------
+# ドキュメントを分割する際のチャンクサイズ（文字数）
+CHUNK_SIZE: int = 1000
+
+# チャンク間の文脈を維持するためのオーバーラップ（文字数）
+CHUNK_OVERLAP: int = 100
+
+# RAG検索時に取得する関連ドキュメントの数
+TOP_K_DOCUMENTS: int = 5
 
 
 # ==========================================

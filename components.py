@@ -18,46 +18,50 @@ def display_app_title():
     """
     タイトル表示
     """
-    st.markdown(f"## {ct.APP_NAME}")
+    st.title(ct.APP_NAME) # st.markdownからst.titleに変更して見やすくしました
 
 
-def display_select_mode():
+# ▼▼▼【新規追加】サイドバーを表示する関数 ▼▼▼
+def display_sidebar():
     """
-    回答モードのラジオボタンを表示
+    サイドバーのコンテンツを表示
     """
-    # 回答モードを選択する用のラジオボタンを表示
-    col1, col2 = st.columns([100, 1])
-    with col1:
-        # 「label_visibility="collapsed"」とすることで、ラジオボタンを非表示にする
-        st.session_state.mode = st.radio(
-            label="",
-            options=[ct.ANSWER_MODE_1, ct.ANSWER_MODE_2],
-            label_visibility="collapsed"
-        )
+    st.sidebar.header(ct.SIDEBAR_TITLE)
+    
+    # モード選択のラジオボタン
+    st.session_state.mode = st.sidebar.radio(
+        "モード選択", # label
+        [ct.ANSWER_MODE_1, ct.ANSWER_MODE_2],
+        label_visibility="hidden" # ラベルは非表示にし、上のheaderをタイトルとする
+    )
+    
+    st.sidebar.markdown("---") # 区切り線
+
+    # 各モードの説明
+    st.sidebar.markdown(ct.SIDEBAR_SEARCH_INFO_HEADER)
+    st.sidebar.info(ct.SIDEBAR_SEARCH_INFO_BODY)
+    # st.codeからst.markdownに変更して見た目を調整
+    st.sidebar.markdown(ct.SIDEBAR_SEARCH_EXAMPLE)
+    
+    st.sidebar.markdown(ct.SIDEBAR_INQUIRY_INFO_HEADER)
+    st.sidebar.info(ct.SIDEBAR_INQUIRY_INFO_BODY)
+    # st.codeからst.markdownに変更して見た目を調整
+    st.sidebar.markdown(ct.SIDEBAR_INQUIRY_EXAMPLE)
 
 
+# ▼▼▼【内容修正】初期AIメッセージの表示関数 ▼▼▼
 def display_initial_ai_message():
     """
     AIメッセージの初期表示
     """
     with st.chat_message("assistant"):
-        # 「st.success()」とすると緑枠で表示される
-        st.markdown("こんにちは。私は社内文書の情報をもとに回答する生成AIチャットボットです。上記で利用目的を選択し、画面下部のチャット欄からメッセージを送信してください。")
-
-        # 「社内文書検索」の機能説明
-        st.markdown("**【「社内文書検索」を選択した場合】**")
-        # 「st.info()」を使うと青枠で表示される
-        st.info("入力内容と関連性が高い社内文書のありかを検索できます。")
-        # 「st.code()」を使うとコードブロックの装飾で表示される
-        # 「wrap_lines=True」で折り返し設定、「language=None」で非装飾とする
-        st.code("【入力例】\n社員の育成方針に関するMTGの議事録", wrap_lines=True, language=None)
-
-        # 「社内問い合わせ」の機能説明
-        st.markdown("**【「社内問い合わせ」を選択した場合】**")
-        st.info("質問・要望に対して、社内文書の情報をもとに回答を得られます。")
-        st.code("【入力例】\n人事部に所属している従業員情報を一覧化して", wrap_lines=True, language=None)
+        # 通常の案内メッセージ
+        st.info(ct.INITIAL_AI_MESSAGE)
+        # 警告メッセージを追加
+        st.warning(ct.INPUT_PROMPT_WARNING, icon=ct.WARNING_ICON)
 
 
+# ▼▼▼【変更なし】この関数は元のままです ▼▼▼
 def display_conversation_log():
     """
     会話ログの一覧表示
@@ -130,6 +134,7 @@ def display_conversation_log():
                             st.info(file_info, icon=icon)
 
 
+# ▼▼▼【変更なし】この関数は元のままです ▼▼▼
 def display_search_llm_response(llm_response):
     """
     「社内文書検索」モードにおけるLLMレスポンスを表示
@@ -257,6 +262,7 @@ def display_search_llm_response(llm_response):
     return content
 
 
+# ▼▼▼【変更なし】この関数は元のままです ▼▼▼
 def display_contact_llm_response(llm_response):
     """
     「社内問い合わせ」モードにおけるLLMレスポンスを表示
