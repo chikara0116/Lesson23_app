@@ -44,10 +44,13 @@ SIDEBAR_INQUIRY_INFO_HEADER = f"**【「{ANSWER_MODE_2}」を選択した場合�
 SIDEBAR_INQUIRY_INFO_BODY = "質問・要望に対して、社内文書の情報をもとに回答を得られます。"
 SIDEBAR_INQUIRY_EXAMPLE = "【入力例】\n人事部に所属している従業員情報を一覧化して"
 
+PAGE_NUMBER_TEMPLATE = "（ページNo.{page_number}）"
+
 
 # ==========================================
 # ログ出力系
 # ==========================================
+# ▼▼▼【修正箇所】このセクションを復活させました ▼▼▼
 LOG_DIR_PATH = "./logs"
 LOGGER_NAME = "ApplicationLog"
 LOG_FILE = "application.log"
@@ -77,13 +80,8 @@ WEB_URL_LOAD_TARGETS = [
 # ------------------------------------------
 # RAG設定
 # ------------------------------------------
-# ドキュメントを分割する際のチャンクサイズ（文字数）
 CHUNK_SIZE: int = 1000
-
-# チャンク間の文脈を維持するためのオーバーラップ（文字数）
 CHUNK_OVERLAP: int = 100
-
-# RAG検索時に取得する関連ドキュメントの数
 TOP_K_DOCUMENTS: int = 5
 
 
