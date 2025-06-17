@@ -5,8 +5,8 @@
 ############################################################
 # ライブラリの読み込み
 ############################################################
-from langchain_community.document_loaders import PyMuPDFLoader, Docx2txtLoader, TextLoader
-from langchain_community.document_loaders.csv_loader import CSVLoader
+# ▼▼▼ TextLoader をインポートリストに追加 ▼▼▼
+from langchain_community.document_loaders import PyMuPDFLoader, Docx2txtLoader, TextLoader, CSVLoader
 
 
 ############################################################
@@ -50,7 +50,6 @@ PAGE_NUMBER_TEMPLATE = "（ページNo.{page_number}）"
 # ==========================================
 # ログ出力系
 # ==========================================
-# ▼▼▼【修正箇所】このセクションを復活させました ▼▼▼
 LOG_DIR_PATH = "./logs"
 LOGGER_NAME = "ApplicationLog"
 LOG_FILE = "application.log"
@@ -68,11 +67,15 @@ TEMPERATURE = 0.5
 # RAG参照用のデータソース系
 # ==========================================
 RAG_TOP_FOLDER_PATH = "./data"
+
+# ▼▼▼ SUPPORTED_EXTENSIONS 辞書に .txt を追加 ▼▼▼
 SUPPORTED_EXTENSIONS = {
     ".pdf": PyMuPDFLoader,
     ".docx": Docx2txtLoader,
+    ".txt": lambda path: TextLoader(path, encoding="utf-8"),
     ".csv": lambda path: CSVLoader(path, encoding="utf-8")
 }
+
 WEB_URL_LOAD_TARGETS = [
     "https://generative-ai.web-camp.io/"
 ]
