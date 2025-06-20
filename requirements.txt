@@ -12,3 +12,4 @@ docx2txt
 beautifulsoup4
 python-docx
 protobuf==3.20.3
+pysqlite3-binary
