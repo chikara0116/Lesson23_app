@@ -11,3 +11,4 @@ pymupdf
 docx2txt
 beautifulsoup4
 python-docx
+protobuf==3.20.3
