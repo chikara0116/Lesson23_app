@@ -20,6 +20,18 @@ import components as cn
 # （自作）変数（定数）がまとめて定義・管理されているモジュール
 import constants as ct
 
+# ===== Streamlit Cloudでのログ出力設定 =====
+import sys
+
+# loggingの基本設定
+# INFOレベル以上のログを、タイムスタンプやログレベル付きで標準出力に出力する
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] %(levelname)s - %(message)s",
+    stream=sys.stdout  # Streamlit Cloudのログに表示するために標準出力を指定
+)
+# ==========================================
+
 
 ############################################################
 # 2. 設定関連
@@ -40,15 +52,15 @@ try:
     # 初期化処理（「initialize.py」の「initialize」関数を実行）
     initialize()
 except Exception as e:
-    # エラーログの出力
-    logger.error(f"{ct.INITIALIZE_ERROR_MESSAGE}\n{e}")
+    # エラーログの出力（exc_info=TrueでTracebackも出力）
+    logger.error(f"{ct.INITIALIZE_ERROR_MESSAGE}", exc_info=True)
     # エラーメッセージの画面表示
     st.error(utils.build_error_message(ct.INITIALIZE_ERROR_MESSAGE), icon=ct.ERROR_ICON)
     # 後続の処理を中断
     st.stop()
 
 # アプリ起動時のログファイルへの出力
-if not "initialized" in st.session_state:
+if "initialized" not in st.session_state:
     st.session_state.initialized = True
     logger.info(ct.APP_BOOT_MESSAGE)
 
@@ -73,8 +85,8 @@ try:
     # 会話ログの表示
     cn.display_conversation_log()
 except Exception as e:
-    # エラーログの出力
-    logger.error(f"{ct.CONVERSATION_LOG_ERROR_MESSAGE}\n{e}")
+    # エラーログの出力（exc_info=TrueでTracebackも出力）
+    logger.error(f"{ct.CONVERSATION_LOG_ERROR_MESSAGE}", exc_info=True)
     # エラーメッセージの画面表示
     st.error(utils.build_error_message(ct.CONVERSATION_LOG_ERROR_MESSAGE), icon=ct.ERROR_ICON)
     # 後続の処理を中断
@@ -112,8 +124,8 @@ if chat_message:
             # 画面読み込み時に作成したRetrieverを使い、Chainを実行
             llm_response = utils.get_llm_response(chat_message)
         except Exception as e:
-            # エラーログの出力
-            logger.error(f"{ct.GET_LLM_RESPONSE_ERROR_MESSAGE}\n{e}")
+            # エラーログの出力（exc_info=TrueでTracebackも出力）
+            logger.error(f"{ct.GET_LLM_RESPONSE_ERROR_MESSAGE}", exc_info=True)
             # エラーメッセージの画面表示
             st.error(utils.build_error_message(ct.GET_LLM_RESPONSE_ERROR_MESSAGE), icon=ct.ERROR_ICON)
             # 後続の処理を中断
@@ -141,8 +153,8 @@ if chat_message:
             # AIメッセージのログ出力
             logger.info({"message": content, "application_mode": st.session_state.mode})
         except Exception as e:
-            # エラーログの出力
-            logger.error(f"{ct.DISP_ANSWER_ERROR_MESSAGE}\n{e}")
+            # エラーログの出力（exc_info=TrueでTracebackも出力）
+            logger.error(f"{ct.DISP_ANSWER_ERROR_MESSAGE}", exc_info=True)
             # エラーメッセージの画面表示
             st.error(utils.build_error_message(ct.DISP_ANSWER_ERROR_MESSAGE), icon=ct.ERROR_ICON)
             # 後続の処理を中断
