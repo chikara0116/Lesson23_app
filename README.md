@@ -1,4 +1,4 @@
-# 社内情報特化型生成AI検索アプリ (Lesson23_app)
+# 社内情報特化型生成AI検索アプリ 
 
 このアプリは社内文書をもとにユーザーからの入力に対して回答する生成AIチャットボットです。
 
@@ -9,10 +9,12 @@
 
 ## 🚀 デモ
 こちらのリンクから実際にアプリを触ることができます！
-
+https://leappn23app-rye8buzexmjcwcqxrgfcrc.streamlit.app/
 
 ## 🛠️ 使用技術
 - **言語**: Python
-- **AI**: OpenAI API (gpt-3.5-turbo)
+- **AI**: OpenAI API (gpt4o-mini)
 - **フレームワーク**: Streamlit
 - **デプロイ**: Streamlit Community Cloud
+
+
